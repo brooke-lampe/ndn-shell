@@ -6,6 +6,21 @@ git clone https://github.com/named-data/ndn-tools.git
 sudo apt-get install build-essential pkg-config libboost-all-dev libsqlite3-dev libssl-dev libpcap-dev
 sudo apt-get install doxygen graphviz python-sphinx
 sleep 60
-cp ndn-cxx-installer.sh ~/ndn-cxx/ndn-cxx-installer.sh
-cp NFD-installer.sh ~/NFD/NFD-installer.sh
-cp ndn-tools-installer.sh ~/ndn-tools/ndn-tools-installer.sh
+cd ..
+cd ndn-cxx
+./waf configure
+./waf
+sudo ldconfig
+sudo cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
+sudo ./waf install
+cd ..
+cd NFD
+./waf configure
+./waf
+sudo ./waf install
+cd ..
+sudo apt-get install libpcap-dev
+cd ndn-tools
+./waf configure
+./waf
+sudo ./waf install
